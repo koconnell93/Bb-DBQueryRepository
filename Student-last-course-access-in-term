@@ -1,0 +1,16 @@
+select distinct on (cm.course_id)
+u.user_id
+,aa.event_type
+,aa.timestamp
+,cm.course_id
+,t.name
+from activity_accumulator aa
+	inner join users u on u.pk1 = aa.user_pk1
+	inner join course_main cm on cm.pk1 = aa.course_pk1
+	inner join course_term ct on ct.crsmain_pk1 = cm.pk1
+	inner join term t on t.pk1 = ct.term_pk1
+where u.user_id = '[Insert User ID]'
+	and t.name like '%Insert Term%'
+order by cm.course_id, aa.timestamp desc
+
+-- chris baca (sagu) via slack
